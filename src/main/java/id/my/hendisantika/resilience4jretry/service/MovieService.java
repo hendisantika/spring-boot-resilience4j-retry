@@ -68,4 +68,9 @@ public class MovieService {
     public Movie getMovieDetailsRetryOnExceptionPredicate(String movieId) {
         return fetchMovieDetails(movieId);
     }
+
+    @Retry(name = "retryUsingExponentialBackoff")
+    public Movie getMovieDetailsRetryUsingExponentialBackoff(String movieId) {
+        return fetchMovieDetails(movieId);
+    }
 }
