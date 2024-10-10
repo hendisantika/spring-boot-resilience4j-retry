@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MovieController {
 
-    private final Logger log = LoggerFactory.getLogger(MovieService.class);
+    private final Logger log = LoggerFactory.getLogger(MovieController.class);
 
     private final MovieService movieService;
 
