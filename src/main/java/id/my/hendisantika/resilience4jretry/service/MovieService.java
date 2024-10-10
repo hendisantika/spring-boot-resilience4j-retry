@@ -73,4 +73,9 @@ public class MovieService {
     public Movie getMovieDetailsRetryUsingExponentialBackoff(String movieId) {
         return fetchMovieDetails(movieId);
     }
+
+    @Retry(name = "retryUsingRandomizedWait")
+    public Movie getMovieDetailsRetryUsingRandomizedWait(String movieId) {
+        return fetchMovieDetails(movieId);
+    }
 }
