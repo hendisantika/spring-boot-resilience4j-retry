@@ -63,4 +63,9 @@ public class MovieService {
             return new Movie("Default", "N/A", "N/A", 0.0);
         }
     }
+
+    @Retry(name = "retryBasedOnExceptionPredicate")
+    public Movie getMovieDetailsRetryOnExceptionPredicate(String movieId) {
+        return fetchMovieDetails(movieId);
+    }
 }
