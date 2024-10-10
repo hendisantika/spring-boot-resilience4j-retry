@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -77,5 +80,25 @@ public class MovieService {
     @Retry(name = "retryUsingRandomizedWait")
     public Movie getMovieDetailsRetryUsingRandomizedWait(String movieId) {
         return fetchMovieDetails(movieId);
+    }
+
+    private Movie fetchMovieDetails(String movieId) {
+        Movie movie = null;
+        try {
+            movie = movieApiClient.getMovieDetails(movieId);
+        } catch (HttpServerErrorException httpServerErrorException) {
+            log.error("Received HTTP server error exception while fetching the movie details. Error Message: {}", httpServerErrorException.getMessage());
+            throw httpServerErrorException;
+        } catch (HttpClientErrorException httpClientErrorException) {
+            log.error("Received HTTP client error exception while fetching the movie details. Error Message: {}", httpClientErrorException.getMessage());
+            throw httpClientErrorException;
+        } catch (ResourceAccessException resourceAccessException) {
+            log.error("Received Resource Access exception while fetching the movie details.");
+            throw resourceAccessException;
+        } catch (Exception exception) {
+            log.error("Unexpected error encountered while fetching the movie details");
+            throw exception;
+        }
+        return movie;
     }
 }
