@@ -1,5 +1,6 @@
 package id.my.hendisantika.resilience4jretry.service;
 
+import id.my.hendisantika.resilience4jretry.client.MovieApiClient;
 import id.my.hendisantika.resilience4jretry.entity.Movie;
 import id.my.hendisantika.resilience4jretry.exception.MovieNotFoundException;
 import io.github.resilience4j.retry.RetryRegistry;

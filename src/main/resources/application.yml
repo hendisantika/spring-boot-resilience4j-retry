@@ -16,15 +16,15 @@ resilience4j.retry:
       retryExceptions:
         - org.springframework.web.client.HttpClientErrorException
       ignoreExceptions:
-        - com.bootcamptoprod.retry.exception.MovieNotFoundException
+        - id.my.hendisantika.resilience4jretry.exception.MovieNotFoundException
     retryBasedOnConditionalPredicate:
       maxAttempts: 2
       waitDuration: 5s
-      resultPredicate: com.bootcamptoprod.retry.predicate.ConditionPredicate
+      resultPredicate: id.my.hendisantika.resilience4jretry.predicate.ConditionPredicate
     retryBasedOnExceptionPredicate:
       maxAttempts: 3
       waitDuration: 4s
-      retryExceptionPredicate: com.bootcamptoprod.retry.predicate.ExceptionPredicate
+      retryExceptionPredicate: id.my.hendisantika.resilience4jretry.predicate.ExceptionPredicate
     retryUsingExponentialBackoff:
       maxAttempts: 4
       waitDuration: 2s
@@ -38,3 +38,5 @@ resilience4j.retry:
     retryWithEventDetails:
       maxAttempts: 3
       waitDuration: 5s
+server:
+  port: 8080
