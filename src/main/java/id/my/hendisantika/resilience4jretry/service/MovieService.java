@@ -101,4 +101,10 @@ public class MovieService {
         }
         return movie;
     }
+
+    private Movie getMovieDetailsFallbackMethod(String movieId, MovieNotFoundException movieNotFoundException) {
+        log.info("Fallback method called.");
+        log.info("Original exception message: {}", movieNotFoundException.getMessage());
+        return new Movie("Default", "N/A", "N/A", 0.0);
+    }
 }
