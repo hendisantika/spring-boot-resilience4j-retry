@@ -1,6 +1,8 @@
 package id.my.hendisantika.resilience4jretry.service;
 
+import id.my.hendisantika.resilience4jretry.entity.Movie;
 import io.github.resilience4j.retry.RetryRegistry;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,4 +27,9 @@ public class MovieService {
     private final RetryRegistry retryRegistry;
 
     private final MovieApiClient movieApiClient;
+
+    @Retry(name = "simpleRetry")
+    public Movie getMovieDetails(String movieId) {
+        return fetchMovieDetails(movieId);
+    }
 }
