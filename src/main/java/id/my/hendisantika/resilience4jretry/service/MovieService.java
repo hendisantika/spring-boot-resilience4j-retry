@@ -1,6 +1,7 @@
 package id.my.hendisantika.resilience4jretry.service;
 
 import id.my.hendisantika.resilience4jretry.entity.Movie;
+import id.my.hendisantika.resilience4jretry.exception.MovieNotFoundException;
 import io.github.resilience4j.retry.RetryRegistry;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
@@ -51,5 +52,15 @@ public class MovieService {
     @Retry(name = "retryOnException")
     public Movie getMovieDetailsRetryOnException(String movieId) {
         return fetchMovieDetails(movieId);
+    }
+
+    @Retry(name = "retryBasedOnConditionalPredicate")
+    public Movie getMovieDetailsRetryOnConditionalPredicate(String movieId) {
+        try {
+            return fetchMovieDetails(movieId);
+        } catch (MovieNotFoundException movieNotFoundException) {
+            log.info("Movie not found exception encountered. Returning default value");
+            return new Movie("Default", "N/A", "N/A", 0.0);
+        }
     }
 }
