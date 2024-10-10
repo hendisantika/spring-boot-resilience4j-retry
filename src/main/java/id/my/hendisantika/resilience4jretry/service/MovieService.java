@@ -47,4 +47,9 @@ public class MovieService {
     public Movie getMovieDetailsWithCustomRetryConfig(String movieId) {
         return fetchMovieDetails(movieId);
     }
+
+    @Retry(name = "retryOnException")
+    public Movie getMovieDetailsRetryOnException(String movieId) {
+        return fetchMovieDetails(movieId);
+    }
 }
