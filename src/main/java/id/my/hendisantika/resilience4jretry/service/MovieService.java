@@ -4,6 +4,7 @@ import id.my.hendisantika.resilience4jretry.entity.Movie;
 import id.my.hendisantika.resilience4jretry.exception.MovieNotFoundException;
 import io.github.resilience4j.retry.RetryRegistry;
 import io.github.resilience4j.retry.annotation.Retry;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,5 +107,16 @@ public class MovieService {
         log.info("Fallback method called.");
         log.info("Original exception message: {}", movieNotFoundException.getMessage());
         return new Movie("Default", "N/A", "N/A", 0.0);
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        io.github.resilience4j.retry.Retry.EventPublisher eventPublisher = retryRegistry.retry("retryWithEventDetails").getEventPublisher();
+
+        eventPublisher.onEvent(event -> log.info("Simple Retry - On Event. Event Details: {}", event));
+        eventPublisher.onError(event -> log.info("Simple Retry - On Error. Event Details: {}", event));
+        eventPublisher.onRetry(event -> log.info("Simple Retry - On Retry. Event Details: {}", event));
+        eventPublisher.onSuccess(event -> log.info("Simple Retry - On Success. Event Details: {}", event));
+        eventPublisher.onIgnoredError(event -> log.info("Simple Retry - On Ignored Error. Event Details: {}", event));
     }
 }
