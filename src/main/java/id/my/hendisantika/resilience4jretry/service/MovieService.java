@@ -37,4 +37,9 @@ public class MovieService {
     public Movie getMovieDetailsWithRetryEventDetails(String movieId) {
         return fetchMovieDetails(movieId);
     }
+
+    @Retry(name = "simpleRetry", fallbackMethod = "getMovieDetailsFallbackMethod")
+    public Movie getMovieDetailsWithFallback(String movieId) {
+        return fetchMovieDetails(movieId);
+    }
 }
