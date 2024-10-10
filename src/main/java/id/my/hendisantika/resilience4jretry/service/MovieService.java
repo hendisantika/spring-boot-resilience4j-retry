@@ -32,4 +32,9 @@ public class MovieService {
     public Movie getMovieDetails(String movieId) {
         return fetchMovieDetails(movieId);
     }
+
+    @Retry(name = "retryWithEventDetails")
+    public Movie getMovieDetailsWithRetryEventDetails(String movieId) {
+        return fetchMovieDetails(movieId);
+    }
 }
