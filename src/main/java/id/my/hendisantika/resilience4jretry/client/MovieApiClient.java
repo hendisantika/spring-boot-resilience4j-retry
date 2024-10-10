@@ -1,5 +1,7 @@
 package id.my.hendisantika.resilience4jretry.client;
 
+import id.my.hendisantika.resilience4jretry.entity.Movie;
+import id.my.hendisantika.resilience4jretry.exception.MovieNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -19,4 +21,13 @@ import org.springframework.web.client.RestTemplate;
 public class MovieApiClient {
 
     private final RestTemplate restTemplate;
+
+    public Movie getMovieDetails(String movieId) throws MovieNotFoundException {
+        String url = "http://localhost:8080/mock/movies/" + movieId;
+        Movie movie = restTemplate.getForObject(url, Movie.class);
+        if (movie == null) {
+            throw new MovieNotFoundException("Movie with id " + movieId + " not found.");
+        }
+        return movie;
+    }
 }
