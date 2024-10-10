@@ -42,4 +42,9 @@ public class MovieService {
     public Movie getMovieDetailsWithFallback(String movieId) {
         return fetchMovieDetails(movieId);
     }
+
+    @Retry(name = "customRetryConfig")
+    public Movie getMovieDetailsWithCustomRetryConfig(String movieId) {
+        return fetchMovieDetails(movieId);
+    }
 }
