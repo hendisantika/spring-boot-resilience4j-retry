@@ -15,8 +15,8 @@ updates:
     assignees:
       - hendisantika
     commit-message:
-      prefix: "chore(deps)"
-      prefix-development: "chore(deps-dev)"
+      prefix: "chore"
+      prefix-development: "chore"
       include: scope
     groups:
       spring-boot:
@@ -53,7 +53,7 @@ updates:
     assignees:
       - hendisantika
     commit-message:
-      prefix: "ci(deps)"
+      prefix: "ci"
       include: scope
     groups:
       github-actions:
